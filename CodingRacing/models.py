@@ -21,3 +21,4 @@ class TrainingGame(models.Model):
     start_client_time = models.DateTimeField(help_text='Время начала игры по клиенту')
 
     language = models.CharField(max_length=20, choices=LANGUAGES.items(), help_text='Язык программирования')
+    last_text = models.TextField(default='', help_text='Последний присланный текст от клиента')

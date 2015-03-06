@@ -30,3 +30,24 @@ body, html {
 .code-image img {
     width: 100%;
 }
+
+.countdown {
+    width: 128px;
+    height: 128px;
+    margin: 0 auto;
+    margin-top: 100px;
+}
+
+.countdown img {
+    position: absolute;
+    width: 128px;
+    height: 128px;
+}
+
+.countdown .seconds {
+    position: relative;
+    font-size: 40pt;
+    top: 27px;
+    width: 120px;
+    text-align: center;
+}

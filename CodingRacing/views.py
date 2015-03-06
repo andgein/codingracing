@@ -2,7 +2,7 @@ from django.templatetags.i18n import language
 
 __author__ = 'Andrew Gein <andgein@yandex.ru>'
 
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 import django.http
 
 import CodingRacing.models as models
@@ -27,7 +27,7 @@ def training_start(request):
         return django.http.HttpResponseBadRequest('Invalid language')
     try:
         client_time = int(client_time)
-        assert(client_time > 0)
+        assert (client_time > 0)
         client_time = datetime.utcfromtimestamp(client_time)
     except ValueError or AssertionError or TypeError:
         return django.http.HttpResponseBadRequest('Invalid timestamp')
@@ -36,4 +36,20 @@ def training_start(request):
     game = models.TrainingGame(user=user, language=lang, start_client_time=client_time)
     game.save()
 
-    return django.http.JsonResponse({'lang': game.language, 'start_time': game.start_time})
+    return django.http.JsonResponse({'id': game.id,
+                                     'lang': game.language,
+                                     'start_time': game.start_time,
+                                     'image': '/static/test/1.png'})
+
+
+def training_update(request, game_id):
+    game_id = int(game_id)
+    game = get_object_or_404(models.TrainingGame, id=game_id)
+
+    current_text = request.POST.get('text')
+    if current_text is None:
+        return django.http.HttpResponseBadRequest()
+
+    game.last_text = current_text
+    game.save()
+    return django.http.JsonResponse({'success': True})
