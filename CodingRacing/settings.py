@@ -84,7 +84,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = ['static', ]
+STATICFILES_DIRS = ['static', 'third-party/ace/build/src-noconflict/']
 
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR,  'templates'),
@@ -92,7 +92,5 @@ TEMPLATE_DIRS = (
 TEMPLATE_LOADERS = (
     'django.template.loaders.app_directories.Loader',
     'django.template.loaders.filesystem.Loader',
-    #'django_jinja.loaders.AppLoader',
-    #'django_jinja.loaders.FileSystemLoader',
 
 )

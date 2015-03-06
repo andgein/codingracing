@@ -1,0 +1,6 @@
+[submodule "ace"]
+	path = ace
+	url = git@github.com:ajaxorg/ace.git
+[submodule "third-party/ace"]
+	path = third-party/ace
+	url = git@github.com:ajaxorg/ace.git

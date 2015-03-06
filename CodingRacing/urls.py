@@ -5,10 +5,10 @@ from django.contrib import admin
 
 
 urlpatterns = patterns('',
-    # Examples:
-    # url(r'^blog/', include('blog.urls')),
+                       # Examples:
+                       # url(r'^blog/', include('blog.urls')),
 
-    url(r'^$', 'CodingRacing.views.index', name='index'),
+                       url(r'^$', 'CodingRacing.views.index', name='index'),
 
-    url(r'^admin/', include(admin.site.urls)),
-) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+                       url(r'^admin/', include(admin.site.urls)),
+)
