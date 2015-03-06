@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head lang="ru">
+<head lang="en">
     <meta charset="UTF-8">
     <title>Контургонки</title>
 
@@ -8,30 +8,22 @@
     <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
 </head>
 <body>
-    <div class="row">
-        <div id="editor" class="col-xs-12 col-md-6">
-public void HelloWorld() {
-    //Say Hello!
-    Console.WriteLine("Hello World");
-}
+    <div class="content">
+        <div class="row title">
+            <h1>Контургонки</h1>
+        </div>
+        <div class="row about">
+            <p>
+                Наконец-то появился способ выяснить, кто круче всех среди разработчиков!
+            </p>
+            <p>
+                Тренируйся, выигрывай в наших Контургонках и получай ценные призы от СКБ Контура.
+            </p>
+        </div>
+        <div class="row">
+            <a class="btn btn-lg btn-success" href="/training" role="button">Тренировка</a>
+            <a class="btn btn-lg btn-success" href="#" role="button">Соревнование</a>
         </div>
     </div>
-
-    <script type="text/javascript" src="/static/jquery/jquery.min.js"></script>
-    <script type="text/javascript" src="/static/ace.js"></script>
-    <script type="text/javascript" src="/static/ext-language_tools.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function(){
-            ace.require('ace/ext/language_tools');
-            var ace_editor = ace.edit('editor');
-            ace_editor.setTheme('/ace/theme/twilight');
-            ace_editor.getSession().setMode('ace/mode/csharp');
-            ace_editor.setOptions({
-                enableBasicAutocompletion: true,
-                enableSnippets: true,
-                enableLiveAutocompletion: false
-            });
-        });
-    </script>
 </body>
 </html>

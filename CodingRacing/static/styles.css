@@ -1,12 +1,32 @@
 body, html {
-    background-color: gray;
     margin: 0;
     padding: 0;
 }
 
+/* Index page */
+.content {
+    max-width: 750px;
+    margin: 100px auto;
+    padding: 80px 100px;
+    background-color: #EEEEEE;
+    border-radius: 8px;
+    border: 1px solid #EFEFEF;
+}
+
+.title {
+    text-align: center;
+}
+
+.title h1 {
+    font-size: 40pt;
+}
+
+/* Training page */
 #editor {
-    padding: 0;
-    margin: 0;
-    min-height: 200px;
-    height: 200px;
+    min-height: 600px;
+    height: 600px;
+}
+
+.code-image img {
+    width: 100%;
 }
