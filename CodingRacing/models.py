@@ -12,6 +12,7 @@ class User(models.Model):
 
 
 LANGUAGES = {'csharp': 'C#', 'javascript': 'Javascript'}
+GAME_STATES = {'running': 'Running...', 'finished': 'Finished'}
 
 
 class TrainingGame(models.Model):
@@ -19,6 +20,9 @@ class TrainingGame(models.Model):
 
     start_time = models.DateTimeField(default=datetime.now, help_text='Время начала игры по серверу')
     start_client_time = models.DateTimeField(help_text='Время начала игры по клиенту')
+    finish_time = models.DateTimeField(default=None, null=True, help_text='Время окончания игры по серверу')
+    finish_client_time = models.DateTimeField(default=None, null=True, help_text='Время окончания игры по клиенту')
 
     language = models.CharField(max_length=20, choices=LANGUAGES.items(), help_text='Язык программирования')
     last_text = models.TextField(default='', help_text='Последний присланный текст от клиента')
+    state = models.CharField(max_length=10, choices=GAME_STATES.items(), help_text='Состояние игры')

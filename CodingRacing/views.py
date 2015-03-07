@@ -29,7 +29,7 @@ def training_start(request):
         client_time = int(client_time)
         assert (client_time > 0)
         client_time = datetime.utcfromtimestamp(client_time)
-    except ValueError or AssertionError or TypeError:
+    except (ValueError, AssertionError, TypeError):
         return django.http.HttpResponseBadRequest('Invalid timestamp')
 
     user = models.User.objects.get(vk_id=1)
@@ -51,5 +51,29 @@ def training_update(request, game_id):
         return django.http.HttpResponseBadRequest()
 
     game.last_text = current_text
+    game.save()
+    return django.http.JsonResponse({'success': True})
+
+
+def training_finish(request, game_id):
+    game_id = int(game_id)
+    game = get_object_or_404(models.TrainingGame, id=game_id)
+
+    current_text = request.POST.get('text')
+    if current_text is None:
+        return django.http.HttpResponseBadRequest()
+
+    client_time = request.POST.get('timestamp')
+    try:
+        client_time = int(client_time)
+        assert (client_time > 0)
+        client_time = datetime.utcfromtimestamp(client_time)
+    except (ValueError, AssertionError, TypeError):
+        return django.http.HttpResponseBadRequest('Invalid timestamp')
+
+    game.last_text = current_text
+    game.state = 'finished'
+    game.finish_time = datetime.now()
+    game.finish_client_time = client_time
     game.save()
     return django.http.JsonResponse({'success': True})
