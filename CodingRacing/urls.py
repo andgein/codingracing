@@ -11,6 +11,7 @@ urlpatterns = patterns('',
                        url(r'^$', 'CodingRacing.views.index', name='index'),
                        url(r'^training$', 'CodingRacing.views.training', name='training'),
                        url(r'^training/start$', 'CodingRacing.views.training_start', name='training_start'),
+                       url(r'^training/(\d+)/code\.png', 'CodingRacing.views.training_code', name='training_code'),
                        url(r'^training/(\d+)/update', 'CodingRacing.views.training_update', name='training_update'),
                        url(r'^training/(\d+)/finish', 'CodingRacing.views.training_finish', name='training_finish'),
 

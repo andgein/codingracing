@@ -1,4 +1,8 @@
-from django.templatetags.i18n import language
+import os
+
+from CodingRacing import code_database
+import ImageGenerator
+
 
 __author__ = 'Andrew Gein <andgein@yandex.ru>'
 
@@ -23,7 +27,7 @@ def training_start(request):
 
     if lang is None or client_time is None:
         return django.http.HttpResponseBadRequest()
-    if lang not in models.LANGUAGES.keys():
+    if lang not in code_database.LANGUAGES.keys():
         return django.http.HttpResponseBadRequest('Invalid language')
     try:
         client_time = int(client_time)
@@ -33,13 +37,28 @@ def training_start(request):
         return django.http.HttpResponseBadRequest('Invalid timestamp')
 
     user = models.User.objects.get(vk_id=1)
-    game = models.TrainingGame(user=user, language=lang, start_client_time=client_time)
+    code = code_database.get_code(lang)
+    game = models.TrainingGame(user=user, language=lang, start_client_time=client_time, text=code)
     game.save()
 
     return django.http.JsonResponse({'id': game.id,
                                      'lang': game.language,
                                      'start_time': game.start_time,
-                                     'image': '/static/test/1.png'})
+                                     'image': '/training/%d/code.png' % game.id})
+
+
+def training_code(request, game_id):
+    game_id = int(game_id)
+    game = get_object_or_404(models.TrainingGame, id=game_id)
+    # TODO: check time for game
+
+    os.makedirs('codes-images/training', exist_ok=True)
+
+    filename = 'codes-images/training/%d.png' % game.id
+    if not os.path.exists(filename):
+        ImageGenerator.generate(game.text).save(filename)
+    with open(filename, 'rb') as f:
+        return django.http.HttpResponse(f.read(), content_type='image/png')
 
 
 def training_update(request, game_id):
