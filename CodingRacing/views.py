@@ -71,7 +71,9 @@ def training_update(request, game_id):
 
     game.last_text = current_text
     game.save()
-    return django.http.JsonResponse({'success': True})
+
+    diff_position = code_database.find_diff_position(game.text, game.last_text)
+    return django.http.JsonResponse({'success': True, 'diff_position': diff_position})
 
 
 def training_finish(request, game_id):
