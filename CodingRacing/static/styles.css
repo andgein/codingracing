@@ -22,6 +22,15 @@ body, html {
 }
 
 /* Training page */
+.game {
+    display: none;
+}
+
+.start-game-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
 #editor {
     min-height: 400px;
     height: 400px;
@@ -52,7 +61,11 @@ body, html {
     text-align: center;
 }
 
-.finish-button-container {
+.finish-button-container, .game-results {
     text-align: center;
     margin-top: 20px;
+}
+
+.game-results {
+    display: none;
 }

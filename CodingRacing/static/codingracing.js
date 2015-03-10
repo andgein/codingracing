@@ -37,15 +37,22 @@ function send_finish_command(game_id, editor)
 {
     var full_text = editor.getSession().doc.$lines.join('\n');
     $.post('/training/' + game_id + '/finish', {'text' : full_text, 'timestamp' : timestamp()}, function(data) {
-        console.log(data);
+        editor.setOption('readOnly', true);
+        $('.finish-button-container').hide();
+        $('.game-results #distance').html(data.distance);
+        $('.game-results').show();
     }, 'json');
 }
 
+var game_diff_position = {row: 0, column: 0};
+var game_language = '';
 function send_editor_content_timer(game_id, editor)
 {
     return setInterval(function(){
         var full_text = editor.getSession().doc.$lines.join('\n');
-        $.post('/training/' + game_id + '/update', {'text' : full_text})
+        $.post('/training/' + game_id + '/update', {'text' : full_text}, function(data){
+            game_diff_position = data.diff_position;
+        }, 'json')
     }, UPDATE_LAST_TEXT_INTERVAL * 1000)
 }
 
@@ -70,18 +77,21 @@ function start_game(editor)
 {
     editor.setOptions({readOnly: true});
 
-    $.getJSON('/training/start?lang=csharp&timestamp=' + timestamp(), function(game){
+    $.getJSON('/training/start?lang=' + game_language + '&timestamp=' + timestamp(), function(game){
         var $countdown = $('#countdown');
+        var $code_image = $('.code-image');
+        $code_image.find('> img').hide();
         $('.finish-button-container a').attr('disabled', true);
         $countdown.countdown(GAME_DELAY, function(){
-            var $code_image = $('.code-image');
             $code_image.find('> img').attr('src', game.image);
+            $code_image.find('> img').show();
             editor.setOptions({readOnly: false});
             editor.selectAll();
             editor.remove();
+            game_diff_position = 0;
             editor.focus();
 
-            timer = send_editor_content_timer(game.id, editor)
+            var timer = send_editor_content_timer(game.id, editor)
             activate_finish_game_button(game.id, editor, function(){
                 clearInterval(timer);
             });
@@ -91,6 +101,13 @@ function start_game(editor)
             img.src = game.image;
         }, LOAD_IMG_AFTER * 1000);
     });
+}
+
+function set_cursor_to_diff_position(editor)
+{
+    editor.moveCursorToPosition(game_diff_position);
+
+    editor.clearSelection();
 }
 
 $(document).ready(function(){
@@ -105,6 +122,27 @@ $(document).ready(function(){
         enableSnippets: true,
         enableLiveAutocompletion: false
     });
+    ace_editor.commands.addCommand({
+        name: 'findDiffPosition',
+        bindKey: {win: 'Ctrl-Q', mac: 'Command-Q'},
+        exec: function(){
+            set_cursor_to_diff_position(ace_editor)
+        }
+    });
 
-    start_game(ace_editor);
+    $('.start-game-container a.btn').click(function(){
+        game_language = $('select[name=language]').val();
+        if (game_language == 'none')
+            return false;
+
+        $('.select-language').hide();
+        $('.game').show();
+        start_game(ace_editor);
+    });
+
+    $('.game-results a.btn').click(function(){
+        $('.finish-button-container').show();
+        $('.game-results').hide();
+        start_game(ace_editor);
+    });
 });

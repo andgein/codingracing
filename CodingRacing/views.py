@@ -1,4 +1,5 @@
 import os
+import Levenshtein
 
 from CodingRacing import code_database
 import ImageGenerator
@@ -38,7 +39,7 @@ def training_start(request):
 
     user = models.User.objects.get(vk_id=1)
     code = code_database.get_code(lang)
-    game = models.TrainingGame(user=user, language=lang, start_client_time=client_time, text=code)
+    game = models.TrainingGame(user=user, language=lang, start_client_time=client_time, text=code, state='running')
     game.save()
 
     return django.http.JsonResponse({'id': game.id,
@@ -64,6 +65,8 @@ def training_code(request, game_id):
 def training_update(request, game_id):
     game_id = int(game_id)
     game = get_object_or_404(models.TrainingGame, id=game_id)
+    if game.state != 'running':
+        return django.http.HttpResponseBadRequest('Game has been finished already')
 
     current_text = request.POST.get('text')
     if current_text is None:
@@ -73,12 +76,20 @@ def training_update(request, game_id):
     game.save()
 
     diff_position = code_database.find_diff_position(game.text, game.last_text)
+
+    # Decrement because we want to set cursor before error, not after
+    if diff_position is not None:
+        diff_position -= 1
+
+    diff_position = code_database.get_row_and_column(game.last_text, diff_position)
     return django.http.JsonResponse({'success': True, 'diff_position': diff_position})
 
 
 def training_finish(request, game_id):
     game_id = int(game_id)
     game = get_object_or_404(models.TrainingGame, id=game_id)
+    if game.state != 'running':
+        return django.http.HttpResponseBadRequest('Game has been finished already')
 
     current_text = request.POST.get('text')
     if current_text is None:
@@ -97,4 +108,7 @@ def training_finish(request, game_id):
     game.finish_time = datetime.now()
     game.finish_client_time = client_time
     game.save()
-    return django.http.JsonResponse({'success': True})
+
+    diff_position = code_database.find_diff_position(game.text, current_text)
+    distance = Levenshtein.distance(game.text, current_text)
+    return django.http.JsonResponse({'success': True, 'diff_position': diff_position, 'distance': distance})
