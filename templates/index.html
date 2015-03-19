@@ -1,29 +1,70 @@
 <!DOCTYPE html>
-<html>
+<html class="fullscreen-background">
 <head lang="en">
     <meta charset="UTF-8">
     <title>Контургонки</title>
 
+    <link rel='stylesheet' href='/static/fonts.css' type='text/css'>
     <link rel="stylesheet" href="/static/styles.css">
     <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
 </head>
 <body>
     <div class="content">
         <div class="row title">
-            <h1>Контургонки</h1>
+{#            <img src="/static/title.png" style="width: 80%">#}
+            <h1>Контур.Гонки</h1>
         </div>
+        {% if is_auth %}
+            <div class="user-info">
+                <div class="name">Вы вошли как <b>{{ user.full_name }}</b></div>
+                <a href="/logout">Выйти</a>
+            </div>
+        {%  endif %}
         <div class="row about">
-            <p>
-                Наконец-то появился способ выяснить, кто круче всех среди разработчиков!
-            </p>
-            <p>
-                Тренируйся, выигрывай в наших Контургонках и получай ценные призы от СКБ Контура.
-            </p>
+            <div class="col-xs-offset-1 col-xs-10">
+                <p>
+                    Наконец-то появился способ выяснить, кто круче!
+                </p>
+                <p>
+                    Тренируйся, выигрывай в наших Контургонках и получай ценные призы от&nbsp;СКБ&nbsp;Контура.
+                    Текущие результаты доступны <a href="/scoreboard">здесь</a>.
+                </p>
+            </div>
         </div>
-        <div class="row">
-            <a class="btn btn-lg btn-success" href="/training" role="button">Тренировка</a>
-            <a class="btn btn-lg btn-success" href="/contest" role="button">Соревнование</a>
+        {% if is_auth %}
+        <div class="main-choice row">
+            <div class="col-xs-offset-1 col-xs-4">
+                <h3>Тренировка</h3>
+                <p>
+                    Выбери язык, чтобы начать заезд
+                </p>
+                <div class="select-language row">
+                    <a class="btn btn-primary  col-xs-offset-1 col-xs-5" role="button" data-language="csharp">C#</a>
+                    <a class="btn btn-primary  col-xs-offset-1 col-xs-5" role="button" data-language="javascript">Javascript</a>
+                </div>
+            </div>
+
+            <div class="col-xs-offset-1 col-xs-4">
+                <h3>Соревнование</h3>
+                <p>
+                    Мы проводим соревнования у стенда СКБ Контура. Приходи!
+                </p>
+                <div class="enter-password row">
+                    <input type="text" name="password" autocomplete="off" placeholder="Пароль" class="col-xs-offset-1 col-xs-5 form-control-static">
+                    <a class="enjoy-contest-button btn btn-primary col-xs-offset-1 col-xs-5" role="button">Готов</a>
+                </div>
+                <p class="enjoy-contest-result">&nbsp;</p>
+            </div>
         </div>
+        {% else %}
+        <div class="vk-login-button-container row">
+            <a class="btn btn-primary btn-lg" href="https://oauth.vk.com/authorize?client_id=4828476&scope=&redirect_uri={{ vk_redirect_url }}&display=page&v=5.29&response_type=code&state=auth" role="button">Войти через ВК</a>
+        </div>
+        {% endif %}
     </div>
+    <script type="text/javascript" src="/static/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/ajax-setup.js"></script>
+    <script type="text/javascript" src="/static/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/static/codingracing.js"></script>
 </body>
 </html>

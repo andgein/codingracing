@@ -1,16 +1,21 @@
 __author__ = 'Andrew Gein <andgein@yandex.ru>'
 
 import glob
+import os
 import random
+import re
 import string
+import Levenshtein
 
-LANGUAGES = {'csharp': 'C#', 'javascript': 'Javascript'}
+import CodingRacing.local_settings as local_settings
+
+LANGUAGES = {'csharp': 'C#', 'javascript': 'JavaScript'}
 
 
-def get_code(language):
+def get_code(language, mode):
     assert (language in LANGUAGES.keys())
 
-    pattern = 'codes/%s/*' % language
+    pattern = os.path.join(local_settings.PROJECT_DIR, 'codes', mode, language, '*')
     files = glob.glob(pattern)
     filename = random.choice(files)
 
@@ -46,3 +51,9 @@ def find_diff_position(original_code, code):
     if idx < len(code) or original_idx < len(original_code):
         return idx
     return None
+
+
+def levenshtein_distance(original_code, code):
+    original_code = re.sub(r'\s', '', original_code)
+    code = re.sub(r'\s', '', code)
+    return Levenshtein.distance(original_code, code)

@@ -1,4 +1,7 @@
 from PIL import Image, ImageDraw, ImageFont
+import os
+
+import CodingRacing.local_settings as local_settings
 
 
 def generate(code, **kwargs):
@@ -12,7 +15,7 @@ def generate(code, **kwargs):
 
     image = Image.new('RGBA', (3 * width, 3 * height), background_color)
     draw = ImageDraw.Draw(image)
-    font = ImageFont.truetype('fonts/Consolas.ttf', font_size)
+    font = ImageFont.truetype(os.path.join(local_settings.PROJECT_DIR, 'fonts/Consolas.ttf'), font_size)
 
     lines = code.split('\n')
     for line_idx, line in enumerate(lines):

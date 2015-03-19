@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html class="fullscreen-background">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Контургонки</title>
+
+    <link rel='stylesheet' href='/static/fonts.css' type='text/css'>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="content">
+        <div class="row title">
+            <h1>Контур.Гонки</h1>
+            <p>
+                Награждение победителей &mdash; у стенда СКБ Контура в <b>18:00</b>
+            </p>
+        </div>
+
+        <div class="scoreboard">
+            {% if not results %}
+                <div>
+                    <p>
+                        Успевай стать первым! Тренируйся на <a href="http://konturgonki.ru">konturgonki.ru</a>, приходи к нам и выигрывай призы.
+                    </p>
+                </div>
+            {% else %}
+                <div class="result head">
+                    <div class="place">&nbsp;</div>
+                    <div class="photo">&nbsp;</div>
+                    <div class="name">Имя</div>
+                    <div class="language">Язык</div>
+                    <div class="speed">Лучшая скорость</div>
+                </div>
+                {% for result in results %}
+                    <div class="result">
+                        <div class="place">{{ forloop.counter }}</div>
+                        <div class="photo"><img src="{{ result.user__photo_50 }}"></div>
+                        <div class="name">{{ result.user__first_name }} {{ result.user__last_name }}</div>
+                        <div class="language">{{ languages|get_item:result.game__language }}</div>
+                        <div class="speed">
+                            {{ result.max_speed }}
+                            {% if forloop.first %}
+                                зн/мин
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+    <script type="text/javascript" src="/static/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/ajax-setup.js"></script>
+    <script type="text/javascript" src="/static/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/static/codingracing.js"></script>
+</body>
+</html>
