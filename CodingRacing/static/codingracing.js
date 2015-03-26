@@ -63,7 +63,7 @@ $.escapeHtml = function(text) {
 
 var GAME_DELAY = 5; // seconds
 var LOAD_IMG_AFTER = 2; // seconds
-var UPDATE_LAST_TEXT_INTERVAL = 2; // seconds
+var UPDATE_LAST_TEXT_INTERVAL = 1; // seconds
 
 function send_finish_command(game_type, game_id, editor)
 {
@@ -236,8 +236,15 @@ $(document).ready(function(){
     }
 
     game_language = $.urlParam('lang');
+    /*
     if (game_language != null)
         start_training(ace_editor)
+    */
+
+    $('.i-understood').click(function(){
+       $('.faq').modal('hide');
+        start_training(ace_editor);
+    });
     $('.select-language a.btn').click(function(){
         game_language = $(this).data('language');
         if (game_language == 'none')
@@ -293,6 +300,8 @@ $(document).ready(function(){
         $('.enter-password').fadeIn();
     });
 
+    if ($('.faq').length)
+        $('.faq').modal('show');
 
     var results = new RegExp('/manage/contest/(\\d+)').exec(window.location.href)
     if (results)
@@ -309,7 +318,8 @@ $(document).ready(function(){
         });
     }
 
-    $('[data-toggle="tooltip"]').tooltip();
+    if ($('[data-toggle="tooltip"]').length)
+        $('[data-toggle="tooltip"]').tooltip();
 });
 
 function manage_update_stat(game_id)

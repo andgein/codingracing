@@ -4,7 +4,17 @@ import os
 import CodingRacing.local_settings as local_settings
 
 
+def prepare_code(code):
+    lines = code.split('\n')
+    new_lines = []
+    for i, line in enumerate(lines):
+        new_lines.append('%3d  %s' % (i + 1, line))
+    return '\n'.join(new_lines)
+
+
 def generate(code, **kwargs):
+    code = prepare_code(code)
+
     width, height = kwargs.get('width', 600), kwargs.get('height', 400)
     font_size = kwargs.get('font_size', 35)
     line_height = int(font_size * 1.2)
@@ -15,6 +25,7 @@ def generate(code, **kwargs):
 
     image = Image.new('RGBA', (3 * width, 3 * height), background_color)
     draw = ImageDraw.Draw(image)
+    draw.rectangle([0, 0, 100, 3 * height], '#eee', '#eee')
     font = ImageFont.truetype(os.path.join(local_settings.PROJECT_DIR, 'fonts/Consolas.ttf'), font_size)
 
     lines = code.split('\n')

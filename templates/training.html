@@ -19,13 +19,13 @@
         </div>
         <div class="row">
             <div class="howto col-sm-offset-1 col-sm-3">
-                <div><b>Ctrl+Q</b> &mdash; перейти к первой ошибке (обновляется раз в секунду)</div>
-                <div><b>Ctrl+L</b> &mdash; перейти к строке по номеру</div>
-                <div><b>Ctrl+Space</b> &mdash; подсказки</div>
+                <div><b>Ctrl/Cmd+Q</b> &mdash; перейти к первой ошибке (обновляется раз в секунду)</div>
+                <div><b>Ctrl/Cmd+L</b> &mdash; перейти к строке по номеру</div>
+                <div><b>Ctrl/Cmd+Space</b> &mdash; подсказки</div>
                 <div><a class="hotkeys-button">Другие хоткеи</a></div>
             </div>
             <div class="finish-button-container col-sm-2">
-                <a href="#" class="btn btn-lg btn-success" role="button">Закончить <small>(Ctrl+Enter)</small></a>
+                <a href="#" class="btn btn-lg btn-success" role="button">Закончить <small>(Ctrl/Cmd+Enter)</small></a>
             </div>
 
             <div class="game-results col-sm-offset-1 col-sm-3 align-left">
@@ -40,12 +40,48 @@
                 </div>
             </div>
             <div class="return-to-main-button-container align-left col-sm-3">
-                <a href="#" class="btn btn-lg btn-success" role="button">Ещё игру?</a>
+                <a href="#" class="btn btn-lg btn-success" role="button">Ещё раз?</a>
                 <a href="/" class="btn btn-lg btn-default">На главную</a>
             </div>
         </div>
     </div>
+
+    <div class="modal fade faq">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Что такое Контур.Гонки?</h4>
+          </div>
+          <div class="modal-body">
+                <p>Контур.Гонки &mdash; это соревнования по скорости набора программ на C# и JavaScript</p>
+                <p class="question">В. Что нужно сделать?</p>
+                <p>О. В правой половине экрана появится код, который нужно будет набрать как можно скорее!</p>
+
+                <p class="question">В. Как определяется скорость набора?</p>
+                <p>О. Ко времени, которое было затрачено, прибавляется штрафное. После это размер программы делится на суммарное время и получается скорость.</p>
+
+                <p class="question">В. Как вычисляется штрафное время?</p>
+                <p>О. Штрафное время вычисляется как пятикратное <a href="https://ru.wikipedia.org/wiki/%D0%A0%D0%B0%D1%81%D1%81%D1%82%D0%BE%D1%8F%D0%BD%D0%B8%D0%B5_%D0%9B%D0%B5%D0%B2%D0%B5%D0%BD%D1%88%D1%82%D0%B5%D0%B9%D0%BD%D0%B0" target="_blank">расстояние Левенштейна</a> между набранным кодом и исходным.</p>
+
+                <p class="question">В. Нужно набрать код именно символ-в-символ?</p>
+                <p>О. Нет, все пробельные символы (в том числе табуляции и переносы строк) игнорируются. Так что можно хоть всё в одну строчку написать.</p>
+
+                <p class="question">В. Можно ли оптимизировать программу? Например, заменить x = x + 1 на x += 1.</p>
+                <p>О. Нет, нельзя. Нужно набрать именно указанную программу.</p>
+
+                <p class="question">В. Можно ли &laquo;читерить&raquo;?</p>
+                <p>О. В тренировках &mdash; сколько угодно, эти результаты нигде не учитываются. В соревнованиях же читерство строго запрещено. Мы будем следить за этим и дисквалифицировать непослушных *му-ха-ха*</p>
+          </div>
+          <div class="modal-footer">
+            Чтобы начать тренировку, нажми <button type="button" class="btn btn-primary i-understood">Я всё понял</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script type="text/javascript" src="/static/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/static/ajax-setup.js"></script>
     <script type="text/javascript" src="/static/ace.js"></script>
     <script type="text/javascript" src="/static/ext-language_tools.js"></script>

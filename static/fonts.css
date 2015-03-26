@@ -1,0 +1,18 @@
+@font-face {
+  font-family: 'Open Sans Condensed';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Open Sans Cond Light'), local('OpenSans-CondensedLight'), url(/static/fonts/gk5FxslNkTTHtojXrkp-xE9ErALkRaO6C35FShgmNgA.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Open Sans Condensed';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Open Sans Condensed Bold'), local('OpenSans-CondensedBold'), url(/static/fonts/gk5FxslNkTTHtojXrkp-xGalpdOY2rBcWRnD117N5LM.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Consolas';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Consolas'), local('Consolas'), url(/static/fonts/Consolas.ttf) format('truetype');
+}

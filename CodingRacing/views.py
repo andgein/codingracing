@@ -79,7 +79,8 @@ def auth(request):
         new_user.first_name = user_info['first_name']
         new_user.last_name = user_info['last_name']
         new_user.photo_50 = user_info['photo_50']
-        new_user.city = user_info['city']['title']
+        # new_user.city = user_info['city']['title']
+        new_user.city = 'Unknown'
         new_user.save()
         auth_user(response, new_user)
 
@@ -325,7 +326,8 @@ def contest_update(request, game_id):
 
     last_texts = models.LastText.objects. \
         filter(game_type='contest', game_id=game.id). \
-        values('user__first_name', 'user__last_name', 'last_text')
+        values('user__first_name', 'user__last_name', 'last_text'). \
+        order_by('time')
     competitors = {'%s %s' % (info['user__first_name'], info['user__last_name']):
                         min(100, int(len(info['last_text']) / len(game.text) * 100)) for info in last_texts}
 
@@ -365,7 +367,7 @@ def contest_finish(request, game_id):
     seconds = int((datetime.now() - game.start_time).total_seconds())
     chars = len(game.text)
     total_seconds = seconds + distance * local_settings.LEVENSHTEIN_PENALTY
-    speed = int((chars / total_seconds) * 60)
+    speed = int(((chars + 0.0) / total_seconds) * 60)
 
     score = models.Score(user=request.user,
                          game=game,
@@ -449,11 +451,11 @@ def manage_status(request, game_id):
     else:
         seconds_from_start = (datetime.now() - game.start_time).total_seconds()
 
-    last_texts_db = models.LastText.objects.filter(game_type='contest', game_id=game_id)
+    last_texts_db = models.LastText.objects.filter(game_type='contest', game_id=game_id).order_by('time')
     last_texts = {}
     for last_text in last_texts_db:
         last_texts[last_text.user.vk_id] = {'text': last_text.last_text,
-                                            'speed': int(len(last_text.last_text) / seconds_from_start * 60)}
+                                            'speed': int((len(last_text.last_text) + 0.0) / seconds_from_start * 60)}
 
     scores = list(models.Score.objects.filter(game_id=game.id).values('user_id', 'seconds', 'distance', 'total_seconds',
                                                                       'speed').all())

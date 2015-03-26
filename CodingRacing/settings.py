@@ -24,7 +24,7 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -55,6 +55,7 @@ ROOT_URLCONF = 'CodingRacing.urls'
 
 WSGI_APPLICATION = 'CodingRacing.wsgi.application'
 
+ADMINS = ['andgein@yandex.ru']
 
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases

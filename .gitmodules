@@ -4,3 +4,6 @@
 [submodule "third-party/ace"]
 	path = third-party/ace
 	url = git@github.com:ajaxorg/ace.git
+[submodule "static/sonic"]
+	path = static/sonic
+	url = git@github.com:cadc/SonicGIF.git

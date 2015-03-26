@@ -159,6 +159,25 @@ body, html {
     /background-color: rgba(238, 238, 238, 0.5);
 }
 
+.faq {
+    font-size: 12pt;
+}
+
+.faq p {
+    padding-top: 0px;
+    margin-bottom: 5px;
+}
+
+.faq .question {
+    font-weight: bold;
+}
+
+.faq .i-understood {
+    margin-left: 5px;
+    position: relative;
+    top: -2px;
+}
+
 #editor {
     min-height: 400px;
     height: 400px;
