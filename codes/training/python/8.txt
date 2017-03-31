@@ -1,0 +1,27 @@
+fred = { 'mike': 456, 'bill': 399, 'sarah': 521 }
+
+try:
+    print fred
+    print fred['nora']
+    print "Won't see this!"
+except KeyError, rest:
+    print "Lookup failed:", rest
+print
+
+fred['bill'] = 'Sopwith Camel'
+fred['wilma'] = 2233
+del fred['mike']
+print fred
+print
+
+print fred.keys()
+for k in fred.keys():
+    print k, "=>", fred[k]
+print
+
+for t in [ 'zingo', 'sarah', 'bill', 'wilma' ]:
+    print t,
+    if fred.has_key(t):
+        print '=>', fred[t]
+    else:
+        print 'is not present.'

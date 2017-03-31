@@ -1,0 +1,19 @@
+next_contiguous:
+        mov     ax,3
+        mul     si
+
+        shr     ax,1
+        xchg    bp,ax
+        mov     ax,word [FAT+bp]
+
+        jc      short odd_cluster
+
+even_cluster:
+        and     ax,0FFFh
+        jmp     got_cluster
+
+odd_cluster:
+        push    cx
+        mov     cl,4
+        shr     ax,cl
+        pop     cx

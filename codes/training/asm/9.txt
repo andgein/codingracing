@@ -1,0 +1,23 @@
+read_ok:
+	mov	si, original + 0Bh
+	mov	di, sector + 0Bh
+	mov	cl, 28
+	rep	movsb
+
+	mov	bp, 3
+	mov	cx, 0001h
+	mov	bx, sector
+
+write_retry:
+	mov	ax, 0301h
+	int	13h
+	jnc	quit
+
+	xor	ah, ah
+	int	13h
+
+	dec	bp
+	jnz	write_retry
+
+quit:
+	retn

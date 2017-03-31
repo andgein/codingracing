@@ -1,0 +1,21 @@
+read_linear_ok:
+;-= this code also sucks! =-
+        pop     ax
+        push    ax
+        mov     cl,5
+        shl     ax,cl
+
+        mov     cx,es
+        add     cx,ax
+        mov     es,cx
+        pop     si
+
+        pop     cx
+        pop     ax
+        add     ax,si
+
+        sub     cx,si
+
+        jnz     short read_linear_next
+
+        retn                            ;bye

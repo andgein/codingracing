@@ -1,0 +1,27 @@
+.486
+.MODEL FLAT
+.CODE
+PUBLIC _myFunc
+_myFunc PROC
+
+  push ebp
+  mov ebp, esp
+  sub esp, 4
+  push edi
+  push esi
+
+  mov eax, [ebp+8]
+  mov esi, [ebp+12]
+  mov edi, [ebp+16]
+
+  mov [ebp-4], edi
+  add [ebp-4], esi
+  add eax, [ebp-4]
+
+  pop esi
+  pop  edi
+  mov esp, ebp
+  pop ebp
+  ret
+_myFunc ENDP
+END

@@ -1,0 +1,22 @@
+import sys, string
+
+for line in sys.stdin.readlines():
+    line = string.lstrip(line)
+    if line == '' or line[0] == '#':
+        continue
+
+    parts = string.split(line, ':')
+    userid = string.strip(parts[0])
+    name = string.strip(parts[4])
+
+    compos = string.find(name, ',')
+    if compos != -1:
+        name = name[0:compos]
+
+    if name == '' or name == userid:
+        name = '[ none ]'
+
+    if len(userid) < 12:
+        userid = userid + ' ' * (12 - len(userid))
+
+    print userid + name

@@ -1,0 +1,28 @@
+from sys import argv
+from string import *
+
+iddict = {}
+
+infile = '/etc/passwd'
+if len(argv) > 1:
+    infile = argv[1]
+
+fin = open(infile, 'r')
+
+for line in fin.readlines():
+    line = lstrip(line)
+
+    parts = split(line, ':')
+    userid = strip(parts[0])
+    name = strip(parts[4])
+
+    position = find(name, ',')
+    if position != -1:
+        name = name[0:position]
+
+    iddict[userid] = name
+
+for line in os.popen('who').readlines():
+    user = split(line)[0]
+    if iddict.has_key(user):
+        print '%-14s %s' % (user + ':', iddict[user])

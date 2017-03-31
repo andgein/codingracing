@@ -1,0 +1,28 @@
+class BailOutException(Exception):
+    pass
+
+BOARD_SIZE = 8
+
+def add_queen(queens):
+    for i in range(BOARD_SIZE):
+        new_queens = queens + [i]
+        try:
+            validate(new_queens)
+            if BOARD_SIZE == len(new_queens):
+                return new_queens
+            else:
+                return add_queen(new_queens)
+        except BailOutException:
+            pass
+    raise BailOutException
+
+def validate(queens):
+    left = right = col = queens[-1]
+    for r in reversed(queens[:-1]):
+        left, right = left - 1, right + 1
+        if r in (left, col, right):
+            raise BailOutException
+
+result = add_queen([])
+print result
+print "\n".join(". "*q + "Q "+". " * (BOARD_SIZE-q-1) for q in result)

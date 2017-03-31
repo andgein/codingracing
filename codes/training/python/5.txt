@@ -1,0 +1,28 @@
+class Accounts:
+    acclist = { }
+
+    def __init__(self, firstname, initbal):
+        if initbal < 0:
+            raise ValueError, 'Overdraft on ' + firstname
+        self.acclist[firstname] = initbal
+
+    def newacct(self, acctname):
+        if self.acclist.has_key(acctname):
+            raise KeyError, 'Account name ' + acctname + ' already exists.'
+        self.acclist[acctname] = 0
+
+    def transfer(self, fr, to, amt):
+        if amt < 0:
+            self.transfer(to, fr, -amt)
+        else:
+            if self.acclist[fr] < amt:
+                raise ValueError, 'Overdraft on ' + fr
+            else:
+                self.acclist[fr] = self.acclist[fr] - amt
+                self.acclist[to] = self.acclist[to] + amt
+
+    def close(self, acctname, receiver = None):
+        if receiver:
+            self.transfer(acctname, receiver, self.acclist[acctname])
+
+        del self.acclist[acctname]

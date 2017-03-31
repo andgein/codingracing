@@ -1,0 +1,8 @@
+        .text
+        .globl  example
+example:
+        movl    $7, -16(%rsp)
+        mov     %rdi, %rax
+        imul    8(%rsp), %rax
+        add     %rsi, %rax
+        ret
