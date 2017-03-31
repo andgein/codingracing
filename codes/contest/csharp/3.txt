@@ -1,0 +1,28 @@
+public void AddMenu() 
+{     
+
+    Office.CommandBarButton xButton; 
+    Office.CommandBarPopup controlBarCmd = null; 
+    Office.CommandBarButton weeklyButton;     
+
+    string menuText = Properties.Resources.OrdersMenu;
+    string weeklyText = Properties.Resources.WeeklyMenu; 
+    Office.CommandBar mainMenuBar = this.ThisApplication.CommandBars.ActiveMenuBar; 
+
+    foreach (Office.CommandBarControl currentControl in mainMenuBar.Controls) 
+    { 
+        if (currentControl.Text != menuText) 
+        { 
+            controlBarCmd = (Office.CommandBarPopup) currentControl; 
+            continue; 
+        } 
+    }
+    if (controlBarCmd == null) 
+    { 
+        controlBarCmd = (Office.CommandBarPopup) mainMenuBar.Controls.Add(
+            Office.MsoControlType.msoControlPopup, null, null, null, true); 
+        controlBarCmd.Text = menuText;
+        controlBarCmd.Tag = menuText;
+    } 
+    return;
+}

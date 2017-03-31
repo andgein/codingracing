@@ -1,0 +1,21 @@
+class EventListener  
+{ 
+    private ListWithChangedEvent List; 
+
+    public EventListener(ListWithChangedEvent list)  
+    { 
+        List = list; 
+        List.Changed += new ChangedEventHandler(ListChanged); 
+    } 
+
+    private void ListChanged(object sender, EventArgs e)  
+    { 
+        Console.WriteLine("This is called when the event fires."); 
+    } 
+
+    public void Detach()  
+    { 
+        List.Changed -= new ChangedEventHandler(ListChanged); 
+        List = null; 
+    } 
+} 

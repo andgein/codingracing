@@ -1,0 +1,13 @@
+protected override void OnListChanged(System.ComponentModel.ListChangedEventArgs e) 
+{ 
+    if (boundToList) 
+    { 
+        Globals.ThisWorkbook.MakeReadWrite(); 
+        base.OnListChanged(e); 
+        Globals.ThisWorkbook.MakeReadOnly(); 
+    } 
+    else 
+    { 
+        base.OnListChanged(e); 
+    } 
+} 

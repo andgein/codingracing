@@ -1,0 +1,28 @@
+function handleSubmit(e, element, configuration) {
+  configuration = configurationFor(element, configuration)
+  var form = e.currentTarget
+
+  if (form.tagName.toUpperCase() !== 'FORM')
+    throw "Invalid usage of $.curt.submit"
+
+  var defaults = {
+    type: form.method.toUpperCase(),
+    url: form.action,
+    element: $(form).attr('data-curt'),
+    target: form
+  }
+
+  if (defaults.type !== 'GET' && window.FormData !== undefined) {
+    defaults.data = new FormData(form);
+    defaults.processData = false;
+  } else {
+    if ($(form).find(':file').length) {
+      return;
+    }
+    defaults.data = $(form).serialize();
+  }
+
+  curt($.extend({}, defaults, configuration))
+
+  e.preventDefault()
+}

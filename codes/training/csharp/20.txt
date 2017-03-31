@@ -1,0 +1,28 @@
+void AddMenu() 
+{ 
+    string menuCaption = Properties.Resources.OrdersMenu; 
+    string weeklyCaption = Properties.Resources.WeeklyMenu; 
+    string unscheduledCaption = Properties.Resources.UnscheduledMenu; 
+
+    Office.CommandBar mainMenuBar = this.ThisApplication.CommandBars.ActiveMenuBar; 
+
+    Office.CommandBarPopup cmdBarControl = null; 
+    Office.CommandBarButton weeklyButton; 
+    Office.CommandBarButton unscheduledButton; 
+
+    foreach (Office.CommandBarControl currentControl in mainMenuBar.Controls) 
+    { 
+        if (currentControl.Caption == menuCaption) 
+        { 
+            cmdBarControl = (Office.CommandBarPopup)currentControl; 
+            break; 
+        } 
+    } 
+
+    if (cmdBarControl == null) 
+    { 
+        cmdBarControl = (Office.CommandBarPopup)mainMenuBar.Controls.Add(Office.MsoControlType.msoControlPopup, missing, missing, missing, true); 
+        cmdBarControl.Caption = menuCaption; 
+        cmdBarControl.Tag = menuCaption; 
+    } 
+}

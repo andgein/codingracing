@@ -1,0 +1,26 @@
+function uniq_array(src, key, sort) {
+    var values = [];
+    var result = [];
+
+    var i = 0;
+    while (i < src.length) {
+        var val = key ? src[i][key] : src[i];
+        if (in_array(values, val) < 0) {
+            result.push(src[i]);
+        }
+        values[i] = val;
+        i++;
+    }
+
+    if (sort) {
+        if (!key) {
+            result = result.sort();
+        } else {
+            result = result.sort(function sort_unique(a, b) {
+                return a[key] > b[key];
+            });
+        }
+    }
+
+    return result;
+}    

@@ -1,0 +1,28 @@
+public class EventList : ArrayList  
+{ 
+    private event EventHandler Handler;
+    protected override int Add(object value)  
+    { 
+        int j = base.Add(value); 
+        OnChanged(EventArgs.Empty); 
+        return j; 
+    }
+    protected virtual void OnChanged(EventArgs e)
+    { 
+        if (Handler != null) 
+            Handler(this, e); 
+    }
+    public override object this[int idx]
+    { 
+        set  
+        { 
+            base[idx] = value; 
+            OnChanged(EventArgs.Empty); 
+        } 
+    }  
+    public override void Clear()
+    { 
+        base.Clear();
+        OnChanged(EventArgs.Empty);
+    }  
+} 

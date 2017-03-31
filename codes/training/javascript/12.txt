@@ -1,0 +1,32 @@
+findQuery: function (store, type, query, recordArray) {
+  var namespace = this._namespaceForType(type);
+  var results = this.query(namespace.records, query);
+
+  if (results.get('length')) {
+    return this.loadRelationshipsForMany(type, results);
+  } else {
+    return Ember.RSVP.reject();
+  }
+},
+
+query: function (records, query) {
+  var results = [], record;
+
+  function recordMatchesQuery(record) {
+    return Ember.keys(query).every(function(property) {
+      var test = query[property];
+      if (Object.prototype.toString.call(test) === '[object RegExp]') {
+        return test.test(record[property]);
+      } else {
+        return record[property] === test;
+      }
+    });
+  }
+  for (var id in records) {
+    record = records[id];
+    if (recordMatchesQuery(record)) {
+      results.push(Ember.copy(record));
+    }
+  }
+  return results;
+}

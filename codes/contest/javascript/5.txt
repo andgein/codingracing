@@ -1,0 +1,18 @@
+process: function(input) {
+    var current_state = this.current_state;
+    var recognized = current_state & (STATE_BEGAN | STATE_CHANGED);
+    var is_valid = this.attrTest(input);
+
+    var event_type = input.event_type;
+    if (recognized && (event_type & INPUT_CANCEL || !is_valid)) {
+        return current_state | STATE_CANCELLED;
+    } else if (recognized || is_valid) {
+        if (event_type & INPUT_END) {
+            return current_state | STATE_ENDED;
+        } else if (!(current_state & STATE_BEGAN)) {
+            return STATE_BEGAN;
+        }
+        return current_state | STATE_CHANGED;
+    }
+    return STATE_FAILED;
+}

@@ -1,0 +1,18 @@
+function cachePop(direction, id, value) {
+  var pushStack, popStack
+  cacheMapping[id] = value
+
+  if (direction === 'forward') {
+    pushStack = cacheBackStack
+    popStack  = cacheForwardStack
+  } else {
+    pushStack = cacheForwardStack
+    popStack  = cacheBackStack
+  }
+
+  pushStack.push(id)
+  if (id = popStack.pop())
+    delete cacheMapping[id]
+
+  trimCacheStack(pushStack, pjax.defaults.maxCacheLength)
+}

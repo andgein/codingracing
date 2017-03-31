@@ -1,0 +1,16 @@
+public void Linq3() 
+{ 
+    List<Product> products = GetProductList(); 
+  
+    var expensiveInStockProducts = 
+        from p in products 
+        where p.UnitsInStock > 0 && p.UnitPrice > 3.00M 
+        select p; 
+  
+    Console.WriteLine("In-stock products that cost more than 3.00:"); 
+    foreach (var product in expensiveInStockProducts) 
+    { 
+        Console.WriteLine("{0} is in stock and costs more than 3.00.",
+            product.ProductName); 
+    } 
+} 

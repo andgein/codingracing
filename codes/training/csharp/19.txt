@@ -1,0 +1,28 @@
+private void ComputeSoldColumn(OperationsBaseData.SalesRow row) 
+{ 
+    SalesRow previousDaysRow = this.Sales.FindByDateFlavor(row.Date.AddDays(-1),
+                                                           row.Flavor); 
+
+    if (previousDaysRow == null) 
+    { 
+        row.SetSoldNull(); 
+    } 
+    else 
+    { 
+        int lastInventory = previousDaysRow.Inventory; 
+        int received; 
+
+        OperationsBaseData.InventoryRow[] inventoryRows = row.GetInventoryRows(); 
+
+        if (inventoryRows == null || inventoryRows.Length == 0) 
+        { 
+            received = 0; 
+        } 
+        else 
+        { 
+            received = inventoryRows[0].Received; 
+        } 
+
+        row.Sold = lastInventory - row.Inventory + received; 
+    } 
+} 

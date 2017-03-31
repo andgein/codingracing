@@ -1,0 +1,22 @@
+var ieRotate = function(){
+            var deg = this.rotateDeg,
+                deg2radians = Math.PI * 2 / 360,
+                rad = deg * deg2radians,
+                costheta = Math.cos(rad),
+                sintheta = Math.sin(rad),
+                element = this.bubble.get(0),
+                width, height;
+
+            element.filters.item(0).M11 = costheta;
+            element.filters.item(0).M12 = -sintheta;
+            element.filters.item(0).M21 = sintheta;
+            element.filters.item(0).M22 = costheta;
+
+            width = this.bubble.width();
+            height = this.bubble.height();
+
+            this.bubble.css({
+                left: this.css.left - ((width - this.options.size)/2),
+                top: this.css.top - ((height - this.options.size)/2)
+            });
+        },

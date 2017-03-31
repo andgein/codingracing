@@ -1,0 +1,24 @@
+        extern _printf
+        global _main
+
+        section .text
+_main:
+        push    esi
+        push    edi
+
+        mov     esi, 1
+        mov     edi, 31
+L1:
+        push    esi
+        push    format
+        call    _printf
+        add     esp, 8
+        add     esi, esi
+        dec     edi
+        jne     L1
+
+        pop     edi
+        pop     esi
+        ret
+
+format: db      '%d', 10, 0

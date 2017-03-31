@@ -221,6 +221,15 @@ def training_finish(request, game_id):
     total_seconds = seconds + distance * local_settings.LEVENSHTEIN_PENALTY
     speed = int((chars / total_seconds) * 60)
 
+    # After DUMP: save score also in training
+    # score = models.Score(user=request.user,
+    #                      game=game,
+    #                      seconds=seconds,
+    #                      distance=distance,
+    #                      total_seconds=total_seconds,
+    #                      speed=speed)
+    # score.save()
+
     return django.http.JsonResponse({'success': True,
                                      'diff_position': diff_position,
                                      'distance': distance,

@@ -9,7 +9,7 @@ import Levenshtein
 
 import CodingRacing.local_settings as local_settings
 
-LANGUAGES = {'csharp': 'C#', 'javascript': 'JavaScript'}
+LANGUAGES = {'csharp': 'C#', 'javascript': 'JavaScript', 'asm': 'ASM', 'python': 'Python'}
 
 
 def get_code(language, mode):

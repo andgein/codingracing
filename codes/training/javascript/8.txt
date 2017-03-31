@@ -1,0 +1,25 @@
+var Binding = fun.newClass({
+    view: null,
+    model: null,
+    modelProp: 'value',
+    viewProp: 'value',
+    modelEvent: '',
+    viewEvent: 'blur',
+
+    init: function(options) {
+        utils.extend(this, options);
+        if (!this.modelEvent) {
+            this.modelEvent = 'change.' + this.modelProp;
+        }
+
+        if (this.model && this.view) {
+            this.view.on(this.viewEvent,
+                fun.bindOnce(this.updateModel, this));
+            this.model.on(this.modelEvent,
+                fun.bindOnce(this.updateView, this));
+            if (this.sync !== false) {
+                this.updateView();
+            }
+        }
+    }
+})

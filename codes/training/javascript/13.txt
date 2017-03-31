@@ -1,0 +1,17 @@
+test('createStylesheet', 1, function() {
+    var div = dom.createElement('div', { className: 'test-dom-width' });
+    dom.createStylesheet('.test-dom-width { width: 100px }');
+    document.getElementById('target').appendChild(div);
+    equal(div.offsetWidth, 100);
+    dom.removeElement(div);
+});
+
+test('computedStyle', 1, function() {
+    var div = dom.createElement('div', { className: 'test-dom-color' });
+    dom.createStylesheet('.test-dom-color { color: #FF0000 }');
+    document.getElementById('target').appendChild(div);
+    var color = dom.computedStyle(div).color;
+    color = color.toLowerCase();
+    ok(color == '#ff0000' || color == 'rgb(255, 0, 0)');
+    dom.removeElement(div);
+});

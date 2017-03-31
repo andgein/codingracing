@@ -1,0 +1,19 @@
+newClassMapProp: function(classMap) {
+    return function(state) {
+        if (!arguments.length) {
+            var res = '';
+            utils.forEach(classMap, function(clasName, enumName) {
+                if (this.hasClass(clasName)) {
+                    res = enumName;
+                    return false;
+                }
+            }, this);
+            return res;
+        }
+
+        utils.forEach(classMap, function(className, enumName) {
+            this.toggleClass(className, state === enumName);
+        }, this);
+        return this;
+    };
+}

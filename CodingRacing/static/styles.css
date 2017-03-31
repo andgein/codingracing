@@ -1,4 +1,4 @@
-body, html {
+body, html {                      
     margin: 0;
     padding: 0;
     background: none !important;
@@ -131,8 +131,8 @@ body, html {
 }
 
 .manage-select-language {
-    max-width: 200px;
-    width: 200px;
+    max-width: 400px;
+    width: 400px;
     position: absolute;
     top: 18px;
     right: 18px;
@@ -141,6 +141,10 @@ body, html {
 
 .select-language > div, .enter-password > div {
     margin-top: 20px;
+}
+
+.select-language + .select-language {
+    padding-top: 10px;
 }
 
 .enter-password input {
@@ -388,7 +392,7 @@ body, html {
     text-align: center;
     font-size: 70pt;
     position: absolute;
-    bottom: 0px;
+    bottom: -100px;
     left: 0px;
     width: 100%;
 
@@ -453,6 +457,7 @@ body, html {
     min-width: 54px;
     width: 54px;
     text-align: center;
+
 }
 .scoreboard .result .photo {
     min-width: 80px;

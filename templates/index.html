@@ -16,7 +16,7 @@
         </div>
         {% if is_auth %}
             <div class="user-info">
-                <div class="name">Вы вошли как <b>{{ user.full_name }}</b></div>
+                <div class="name">Ты вошёл как <b>{{ user.full_name }}</b></div>
                 <a href="/logout">Выйти</a>
             </div>
         {%  endif %}
@@ -33,10 +33,9 @@
         </div>
         {% if is_auth %}
         <div class="main-choice row">
-            <div class="col-xs-offset-1 col-xs-4">
-                <h3>Тренировка</h3>
+            <div class="col-xs-offset-1 col-xs-8">
                 <p>
-                    Выбери язык, чтобы начать заезд
+                    Начни прямо здесь! Выбери язык, чтобы начать заезд
                 </p>
                 <div class="select-language row">
                     <a class="btn btn-primary  col-xs-offset-1 col-xs-5" role="button" data-language="csharp">C#</a>
@@ -44,6 +43,7 @@
                 </div>
             </div>
 
+            {% comment %}
             <div class="col-xs-offset-1 col-xs-4">
                 <h3>Соревнование</h3>
                 <p>
@@ -55,6 +55,7 @@
                 </div>
                 <p class="enjoy-contest-result">&nbsp;</p>
             </div>
+            {% endcomment %}
         </div>
         {% else %}
         <div class="vk-login-button-container row">

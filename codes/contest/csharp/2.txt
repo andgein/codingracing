@@ -1,0 +1,21 @@
+public partial class OperData : System.Data.DataSet
+{ 
+    protected virtual void SalesChanged(ColumnEventArgs e) 
+    { 
+    } 
+
+    public partial class SalesDataTable : System.Data.TypedTableBase<SalesRow>,
+                                          System.Collections.IEnumerable
+    { 
+        protected override void OnColumnChanged(ColumnEventArgs e) 
+        { 
+            OperData dataset = this.DataSet as OperData; 
+
+            if (dataset != null && e.Column == this.InventoryColumn) 
+            { 
+                dataset.SalesChanged(e); 
+            } 
+            base.OnColumnChanged(e); 
+        } 
+    } 
+} 

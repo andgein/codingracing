@@ -1,0 +1,28 @@
+public class SortedList<T> : MyList<T> where T : IComparable<T> 
+{ 
+    public void BubbleSort() 
+    { 
+        bool swapped; 
+        do { 
+            Node previous = null;
+            Node current = head; 
+            swapped = false;
+            while (current.next != null) 
+            { 
+                if (current.Data.CompareTo(current.next.Data) > 0) 
+                { 
+                    Node tmp = current.next; 
+                    current.next = current.next.next; 
+                    tmp.next = current; 
+
+                    if (previous == null) 
+                        head = tmp; 
+                    else 
+                        previous.next = tmp; 
+                    previous = tmp; 
+                    swapped = true; 
+                }
+            }
+        } while (swapped); 
+    } 
+} 

@@ -1,0 +1,27 @@
+findQuery: function (store, type, request, recordArray) {
+  var namespace = this._namespaceForType(type);
+  var results = this.request(namespace.records, request);
+
+  if (! results.get('length'))
+    return ProjectName.KFIR.reject();    
+  else
+    return this.loadRelations(type, results);    
+},
+
+request: function (records, request) {
+  var results = [], record;
+
+  function recordMatchesRequest(record) {
+    return ProjectName.keys(request).every(function(property) {
+      var value = request[property];
+      if (Object.prototype.toString.call(value) === '[object RegExp]')
+        return value.value(record[property]);
+      else
+        return record[property] === value;
+    });
+  }
+
+  for (var id in records)
+    if (recordMatchesQuery(record))
+      results.push(ProjectName.copy(record));
+}
