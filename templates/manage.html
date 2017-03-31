@@ -2,7 +2,7 @@
 <html class="fullscreen-background">
 <head lang="en">
     <meta charset="UTF-8">
-    <title>Контургонки | Менеджер</title>
+    <title>Клавогонки | Менеджер</title>
 
     <link rel='stylesheet' href='/static/fonts.css' type='text/css'>
     <link rel="stylesheet" href="/static/styles.css">
@@ -11,37 +11,40 @@
 <body class="manage">
     <div class="manage-select-language">
         <div class="">
-            <a class="btn btn-default col-xs-offset-1 col-xs-5" role="button" href="/manage/create?language=csharp">C#</a>
-            <a class="btn btn-default col-xs-offset-1 col-xs-5" role="button" href="/manage/create?language=javascript">JavaScript</a>
+            <a class="btn btn-default col-xs-offset-5 col-xs-3" role="button" href="/manage/create?language=csharp">C#</a>
+            <a class="btn btn-default col-xs-offset-1 col-xs-3" role="button" href="/manage/create?language=javascript">JavaScript</a>
+            <a class="btn btn-default col-xs-offset-5 col-xs-3" role="button" href="/manage/create?language=asm">Ассемблер</a>
+            <a class="btn btn-default col-xs-offset-1 col-xs-3" role="button" href="/manage/create?language=python">Питон</a>
+
         </div>
     </div>
     <div class="content">
         <div class="row title">
-            <h1>Контур.Гонки</h1>
+            <h1>Клавогонки</h1>
         </div>
         <div class="about row">
             <div class="qrcode">
-                <img src="/static/qrcode.png">
-                <div><a href="konturgonki.ru">konturgonki.ru</a></div>
+                %TODO%: <img src="/static/qrcode.png">
+                <div><a href="/">{{ uri }}</a></div>
             </div>
             <p>
                 <b>Сразись в скорости и чистоте написания кода!</b>
             </p>
             <p>
-                Гонки проходят на С# и JavaScript &mdash; основных языках, используемых в Контуре.
+                Гонки проходят на Ассемблере, Питоне, С# и JavaScript.
             </p>
             <p>
                 Лучшим гонщикам &mdash; приятные подарки. Победитель же получит всё: почёт, славу и, конечно, главный приз!
-                Итоги дня подведем в <b>18:00</b>.
+                Итоги подведем в <b>%TODO% 17:00</b>.
             </p>
             <p>
-                Результаты доступны онлайн на <a href="http://konturgonki.ru/scoreboard">http://konturgonki.ru/scoreboard</a>
+                Результаты доступны онлайн на <a href="/scoreboard">{{ uri }}scoreboard</a>
             </p>
             <p>
                 Режимы гонок:
                 <ul>
-                    <li><b>Тренировка</b>,чтобы проверить  свои силы. Доступно в любом месте зала :)
-                    <li><b>Соревнование</b>: заезды до 4-х игроков на стенде Контура. Приноси свой ноут или воспользуйся нашим.
+                    <li><b>Тренировка</b>,чтобы проверить  свои силы. Доступно в любом месте и в любое время :)
+                    <li><b>Соревнование</b>: заезды до 4-х игроков.
                 </ul>
             </p>
             <p>

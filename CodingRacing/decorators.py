@@ -1,5 +1,3 @@
-__author__ = 'Andrew Gein <andgein@yandex.ru>'
-
 import hashlib
 
 import django.http

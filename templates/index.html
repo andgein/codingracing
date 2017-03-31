@@ -2,7 +2,7 @@
 <html class="fullscreen-background">
 <head lang="en">
     <meta charset="UTF-8">
-    <title>Контургонки</title>
+    <title>Клавогонки</title>
 
     <link rel='stylesheet' href='/static/fonts.css' type='text/css'>
     <link rel="stylesheet" href="/static/styles.css">
@@ -11,8 +11,7 @@
 <body>
     <div class="content">
         <div class="row title">
-{#            <img src="/static/title.png" style="width: 80%">#}
-            <h1>Контур.Гонки</h1>
+            <h1>Клавогонки</h1>
         </div>
         {% if is_auth %}
             <div class="user-info">
@@ -26,14 +25,15 @@
                     Наконец-то появился способ выяснить, кто круче!
                 </p>
                 <p>
-                    Тренируйся, выигрывай в наших Контургонках и получай ценные призы от&nbsp;СКБ&nbsp;Контура.
+                    Тренируйся, выигрывай в наших Клавгонках и получай ценные призы.
                     Текущие результаты доступны <a href="/scoreboard">здесь</a>.
                 </p>
             </div>
         </div>
         {% if is_auth %}
         <div class="main-choice row">
-            <div class="col-xs-offset-1 col-xs-8">
+            <div class="col-xs-offset-1 col-xs-4">
+                <h3>Тренировка</h3>
                 <p>
                     Начни прямо здесь! Выбери язык, чтобы начать заезд
                 </p>
@@ -41,13 +41,16 @@
                     <a class="btn btn-primary  col-xs-offset-1 col-xs-5" role="button" data-language="csharp">C#</a>
                     <a class="btn btn-primary  col-xs-offset-1 col-xs-5" role="button" data-language="javascript">JavaScript</a>
                 </div>
+                <div class="select-language row">
+                    <a class="btn btn-primary  col-xs-offset-1 col-xs-5" role="button" data-language="asm">Ассемблер</a>
+                    <a class="btn btn-primary  col-xs-offset-1 col-xs-5" role="button" data-language="python">Питон</a>
+                </div>
             </div>
 
-            {% comment %}
             <div class="col-xs-offset-1 col-xs-4">
                 <h3>Соревнование</h3>
                 <p>
-                    Мы проводим соревнования у стенда СКБ Контура. Приходи!
+                    Мы проводим регулярные заезды. Приходи %TODO%
                 </p>
                 <div class="enter-password row">
                     <input type="text" name="password" autocomplete="off" placeholder="Пароль" class="col-xs-offset-1 col-xs-5 form-control-static">
@@ -55,7 +58,6 @@
                 </div>
                 <p class="enjoy-contest-result">&nbsp;</p>
             </div>
-            {% endcomment %}
         </div>
         {% else %}
         <div class="vk-login-button-container row">

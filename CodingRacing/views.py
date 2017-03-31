@@ -1,8 +1,3 @@
-# -*- coding: utf-8 -*-
-from cgitb import enable
-
-__author__ = 'Andrew Gein <andgein@yandex.ru>'
-
 from datetime import datetime, timedelta
 import os
 import random
@@ -219,16 +214,7 @@ def training_finish(request, game_id):
         seconds = 0
     chars = len(game.text)
     total_seconds = seconds + distance * local_settings.LEVENSHTEIN_PENALTY
-    speed = int((chars / total_seconds) * 60)
-
-    # After DUMP: save score also in training
-    # score = models.Score(user=request.user,
-    #                      game=game,
-    #                      seconds=seconds,
-    #                      distance=distance,
-    #                      total_seconds=total_seconds,
-    #                      speed=speed)
-    # score.save()
+    speed = int((float(chars) / total_seconds) * 60)
 
     return django.http.JsonResponse({'success': True,
                                      'diff_position': diff_position,
@@ -280,7 +266,7 @@ def contest_check(request, game_id):
     return django.http.JsonResponse({'state': game.state,
                                      'before_start': int(before_start.total_seconds()),
                                      'image': '/contest/%d/code.png' % game_id,
-    })
+                                     })
 
 
 @decorators.auth_only
@@ -338,7 +324,7 @@ def contest_update(request, game_id):
         values('user__first_name', 'user__last_name', 'last_text'). \
         order_by('time')
     competitors = {'%s %s' % (info['user__first_name'], info['user__last_name']):
-                        min(100, int(len(info['last_text']) / len(game.text) * 100)) for info in last_texts}
+                       min(100, int(len(info['last_text']) / len(game.text) * 100)) for info in last_texts}
 
     diff_position = code_database.find_diff_position(game.text, current_text)
 
@@ -400,12 +386,12 @@ def scoreboard(request):
         values('user__first_name', 'user__last_name', 'user__photo_50', 'game__language'). \
         annotate(max_speed=django.db.models.Max('speed')). \
         order_by('-max_speed')
-    return render(request, 'scoreboard.html', {'results': results, 'languages': code_database.LANGUAGES})
+    return render(request, 'scoreboard.html', {'results': results, 'languages': code_database.LANGUAGES, 'uri': request.build_absolute_uri('/')})
 
 
 @decorators.manage_only
 def manage(request):
-    return render(request, 'manage.html')
+    return render(request, 'manage.html', {'uri': request.build_absolute_uri('/')})
 
 
 @decorators.manage_only
@@ -468,7 +454,7 @@ def manage_status(request, game_id):
 
     scores = list(models.Score.objects.filter(game_id=game.id).values('user_id', 'seconds', 'distance', 'total_seconds',
                                                                       'speed').all())
-    scores = {score['user_id']: score for score in scores}
+    scores = {score.user_id: score for score in scores}
 
     return django.http.JsonResponse({'state': game.state,
                                      'users': users,

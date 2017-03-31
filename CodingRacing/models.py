@@ -1,7 +1,3 @@
-# -*- coding: utf-8 -*-
-
-__author__ = 'Andrew Gein <andgein@yandex.ru>'
-
 from django.db import models
 from django.contrib import admin
 from datetime import datetime
@@ -25,6 +21,7 @@ class User(models.Model):
     @property
     def full_name(self):
         return '%s %s' % (self.first_name, self.last_name)
+
 
 GAME_STATES = {'not-started': 'Not started yet', 'running': 'Running...', 'finished': 'Finished'}
 
@@ -66,11 +63,14 @@ class LastText(models.Model):
     last_text = models.TextField(default='', help_text='Последний присланный текст от клиента')
 
     time = models.DateTimeField(default=datetime.now, help_text='Время')
-    game_type = models.CharField(max_length=10, db_index=True, choices={'training': TrainingGame, 'contest': ContestGame}.items())
+    game_type = models.CharField(max_length=10, db_index=True,
+                                 choices={'training': TrainingGame, 'contest': ContestGame}.items())
     game_id = models.IntegerField(db_index=True)
 
     def __str__(self):
-        return '%s-%d, %s, by %s, "%s"' % (self.game_type, self.game_id, self.time, self.user.first_name + ' ' + self.user.last_name, self.last_text[:30] )
+        return '%s-%d, %s, by %s, "%s"' % (
+            self.game_type, self.game_id, self.time, self.user.first_name + ' ' + self.user.last_name,
+            self.last_text[:30])
 
 
 class Score(models.Model):
@@ -83,6 +83,7 @@ class Score(models.Model):
     speed = models.IntegerField(help_text='Скорость')
 
     time = models.DateTimeField(default=datetime.now, help_text='Время установки результата')
+
 
 admin.site.register(User)
 admin.site.register(TrainingGame)
